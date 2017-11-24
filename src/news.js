@@ -5,11 +5,11 @@ const dataService = new NewsDataService();
 const renderingService = new NewsRenderingService();
 
 const sources = dataService.getSources();
-sources.then(s => renderingService.renderSources(s));
+sources.then(s => renderingService.renderContent(s));
 
 function openSource(id) {
     const articles = dataService.getArticles(id);
-    articles.then(a => renderingService.renderArticles(a));
+    articles.then(a => renderingService.renderContent(a));
 }
 
 document.querySelector('body').addEventListener('click', function(event) {

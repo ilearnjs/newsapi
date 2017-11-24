@@ -3,23 +3,14 @@ export class NewsRenderingService {
         this.contentElement = document.getElementById('content');
     }
 
-    renderSources(sources) {
+    renderContent(items) {
         this.clearContent();
-        for (let i = 0; i < sources.length; i++) {
-            const source = sources[i];
-            const sourceElement = source.getElement();
-            this.addContent(sourceElement);
+        for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+            const element = item.getElement();
+            this.addContent(element);
         }
-    };
-
-    renderArticles(articles) {
-        this.clearContent();
-        for (let i = 0; i < articles.length; i++) {
-            const article = articles[i];
-            const articleElement = article.getElement();
-            this.addContent(articleElement);
-        }
-    };
+    }
 
     addContent(element) {
         this.contentElement.appendChild(element);
