@@ -1,14 +1,14 @@
 import { Template } from "./template-model";
 
-export class Article extends Template {
-    constructor(article) {
+export class Headline extends Template {
+    constructor(headline) {
         super();
-        this.title = article.title;
+        this.title = headline.title;
     }
 
     getHtml() {
         return `
-        <div class="article">
+        <div class="headline">
             <span class="title">
                 ${this.title}
             </span>

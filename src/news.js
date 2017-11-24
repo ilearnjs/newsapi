@@ -1,20 +1,28 @@
 import { NewsDataService } from './services/news-data-service';
 import { NewsRenderingService } from './services/news-rendering-service';
+import { NewsRoutingService } from './services/news-routing-service';
+import { SOURCES, HEADLINES } from './news-constants';
 
 const dataService = new NewsDataService();
 const renderingService = new NewsRenderingService();
 
-const sources = dataService.getSources();
-sources.then(s => renderingService.renderContent(s));
-
-function openSource(id) {
-    const articles = dataService.getArticles(id);
-    articles.then(a => renderingService.renderContent(a));
-}
-
-document.querySelector('body').addEventListener('click', function(event) {
-    if (event.target.tagName.toLowerCase() === 'a') {
-        const id = event.target.getAttribute('source-id');
-        openSource(id);
+const routes = [
+    {
+        url: SOURCES,
+        action: () => {
+            dataService.getSources()
+                .then(sources => renderingService.renderContent(sources));
+        }
+    },
+    {
+        url: HEADLINES,
+        action: (params) => dataService.getHeadlines(params)
+            .then(headLines => renderingService.renderContent(headLines)),
     }
-});
+];
+
+const routingService = new NewsRoutingService(routes);
+const route = () => routingService.route(location.hash);
+
+window.addEventListener('hashchange', route);
+window.addEventListener('load', route);

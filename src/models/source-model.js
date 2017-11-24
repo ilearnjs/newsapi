@@ -1,4 +1,5 @@
 import { Template } from "./template-model";
+import { HEADLINES } from "./../news-constants";
 
 export class Source extends Template {
     constructor(source) {
@@ -10,7 +11,7 @@ export class Source extends Template {
     getHtml() {
         return `
         <div class="source">
-            <a href="#" source-id="${this.id}">
+            <a href="#${HEADLINES}?sources=${this.id}">
                 ${this.name}
             </a>
         </div>

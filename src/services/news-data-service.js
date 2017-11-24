@@ -1,21 +1,20 @@
-import { SOURCES, ARTICLES, APIKEY } from '../models/news-constants';
+import { SOURCES_URL, HEADLINES_URL, APIKEY } from '../news-constants';
 import { Source } from '../models/source-model';
-import { Article } from '../models/article-model';
+import { Headline } from '../models/headline-model';
 
 export class NewsDataService {
     getSources() {
-        const url = new URL(SOURCES);
+        const url = new URL(SOURCES_URL);
 
         return this.request(url)
             .then(json => json.sources.map(s => new Source(s)));
     };
 
-    getArticles(sources) {
-        const url = new URL(ARTICLES);
-        const params = { sources };
+    getHeadlines(params) {
+        const url = new URL(HEADLINES_URL);
 
         return this.request(url, params)
-            .then(json => json.articles.map(a => new Article(a)));
+            .then(json => json.articles.map(a => new Headline(a)));
     };
 
     request(url, params = {}) {
