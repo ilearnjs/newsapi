@@ -1,4 +1,4 @@
-import { SOURCES, ARTICLES, API_KEY } from '../models/news-constants';
+import { SOURCES, ARTICLES, APIKEY } from '../models/news-constants';
 import { Source } from '../models/source-model';
 import { Article } from '../models/article-model';
 
@@ -19,7 +19,7 @@ export class NewsDataService {
     };
 
     request(url, params = {}) {
-        Object.assign(params, { API_KEY });
+        Object.assign(params, { APIKEY });
         Object.keys(params)
             .forEach(key => url.searchParams.append(key, params[key]));
 
