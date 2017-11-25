@@ -16,13 +16,15 @@ export class Headline extends Template {
             <span class="title">
                 ${this.title}
             </span>
-            <div class="image">
-                <img src="${this.urlToImage}">
-            </div>
+            <span class="publishedAt">
+                Published at ${this.getDateString(this.publishedAt)}
+            </span>
+            ${this.$if(this.urlToImage, `
+                <div class="image">
+                    <img src="${this.urlToImage}">
+                </div>
+            `)} 
             <div class="article">
-                <span class="publishedAt">
-                    ${this.getDateString(this.publishedAt)}
-                </span>
                 <span class="description">
                     ${this.description}
                 </span>

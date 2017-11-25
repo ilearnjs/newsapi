@@ -6,6 +6,10 @@ export class Template {
         return template.content;
     }
 
+    $if(condition, result) {
+        return condition ? result : '';
+    }
+
     getHtml() {
         throw new Error('The method must be overriden');
     }
