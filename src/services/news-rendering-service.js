@@ -1,11 +1,11 @@
 import { Container } from "../models/container-model";
 
 export class NewsRenderingService {
-    constructor() {
-        this.contentElement = document.getElementById('content');
+    static get contentElement() {
+        return document.getElementById('content');
     }
 
-    renderContent(items, id) {
+    static renderContent(items, id) {
         this.clearContent();
         const container = new Container(id).getElement().firstElementChild;
         for (let i = 0; i < items.length; i++) {
@@ -16,11 +16,11 @@ export class NewsRenderingService {
         this.addContent(container);
     }
 
-    addContent(element) {
+    static addContent(element) {
         this.contentElement.appendChild(element);
     }
 
-    clearContent() {
+    static clearContent() {
         this.contentElement.innerHTML = '';
     };
 }
