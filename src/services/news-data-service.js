@@ -23,7 +23,6 @@ export class NewsDataService {
             .forEach(key => url.searchParams.append(key, params[key]));
 
         return fetch(url)
-            .then(data => data.json())
-            .catch(ex => alert(ex));
+            .then(data => data.json());
     };
 }

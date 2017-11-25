@@ -11,14 +11,18 @@ const routes = [
         url: SOURCES,
         action: () => {
             dataService.getSources()
-                .then(sources => renderingService.renderContent(sources));
-        }
+                .then(sources => renderingService.renderContent(sources))
+                .catch(ex => alert(ex));
+        },
     },
     {
         url: HEADLINES,
-        action: (params) => dataService.getHeadlines(params)
-            .then(headLines => renderingService.renderContent(headLines)),
-    }
+        action: (params) => {
+            dataService.getHeadlines(params)
+                .then(headLines => renderingService.renderContent(headLines))
+                .catch(ex => alert(ex));
+        },
+    },
 ];
 
 const routingService = new NewsRoutingService(routes);
