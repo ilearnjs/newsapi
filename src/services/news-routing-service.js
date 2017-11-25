@@ -4,7 +4,6 @@ export class NewsRoutingService {
     }
 
     route(hash) {
-        debugger;
         const parsedHash = this.parseHash(hash);
         const route = this.getRoute(parsedHash.routeUrl);
         route.action(parsedHash.params);
