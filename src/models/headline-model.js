@@ -4,6 +4,10 @@ export class Headline extends Template {
     constructor(headline) {
         super();
         this.title = headline.title;
+        this.url = headline.url;
+        this.urlToImage = headline.urlToImage;
+        this.publishedAt = headline.publishedAt;
+        this.description = headline.description;
     }
 
     getHtml() {
@@ -12,7 +16,28 @@ export class Headline extends Template {
             <span class="title">
                 ${this.title}
             </span>
+            <div class="image">
+                <img src="${this.urlToImage}">
+            </div>
+            <div class="article">
+                <span class="publishedAt">
+                    ${this.getDateString(this.publishedAt)}
+                </span>
+                <span class="description">
+                    ${this.description}
+                </span>
+                <span class="link">
+                    <a href="${this.url}" target="_blank">
+                        Go to article
+                    </a>
+                </span>
+            </div>
         </div>
         `;
     }
+
+    getDateString(d) {
+        let date = new Date(d);
+        return date.toLocaleString();
+    };
 }

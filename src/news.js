@@ -11,7 +11,7 @@ const routes = [
         url: SOURCES,
         action: () => {
             dataService.getSources()
-                .then(sources => renderingService.renderContent(sources))
+                .then(sources => renderingService.renderContent(sources, 'sources'))
                 .catch(ex => alert(ex));
         },
     },
@@ -19,7 +19,7 @@ const routes = [
         url: HEADLINES,
         action: (params) => {
             dataService.getHeadlines(params)
-                .then(headLines => renderingService.renderContent(headLines))
+                .then(headLines => renderingService.renderContent(headLines, 'headlines'))
                 .catch(ex => alert(ex));
         },
     },
