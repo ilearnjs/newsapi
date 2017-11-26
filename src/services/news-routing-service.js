@@ -11,23 +11,26 @@ export class NewsRoutingService {
 
     parseHash(hash) {
         const hashParts = (location.hash.slice(1) || '').split('?');
-        const parsed = {};
-        parsed.routeUrl = hashParts[0];
-        parsed.params = {};
-
-        if (hashParts.length > 1) {
-            const params = hashParts[1].split('&');
-            for (let i = 0, param; i < params.length; i++) {
-                param = params[i].split('=')
-                parsed.params[param[0]] = param[1];
-            }
-        }
+        const parsed = {
+            routeUrl: hashParts[0],
+            params: this.getParams(hashParts[1])
+        };
 
         return parsed;
     };
 
+    getParams(hashParams) {
+        const params = {};
+        (hashParams || '').split('&').forEach(p => {
+            const keValue = p.split('=')
+            params[keValue[0]] = keValue[1];
+        });
+
+        return params;
+    }
+
     getRoute(routeUrl) {
-        return this.routes.find(r => r.url.toLowerCase() === routeUrl.toLowerCase()) 
+        return this.routes.find(r => r.url.toLowerCase() === routeUrl.toLowerCase())
             || this.routes[0];
     }
 }
