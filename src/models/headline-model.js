@@ -3,11 +3,7 @@ import { Template } from "./template-model";
 export class Headline extends Template {
     constructor(headline) {
         super();
-        this.title = headline.title;
-        this.url = headline.url;
-        this.urlToImage = headline.urlToImage;
-        this.publishedAt = headline.publishedAt;
-        this.description = headline.description;
+        Object.assign(this, headline);
     }
 
     getHtml() {
