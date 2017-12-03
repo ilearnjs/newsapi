@@ -7,7 +7,10 @@ export class NewsRenderingService {
 
     static renderContent(items, id) {
         this.clearContent();
-        const container = new Container(id).getElement().firstElementChild;
+        // IE does not support <template>
+        // const container = new Container(id).getElement().firstElementChild;
+        
+        const container = new Container(id).getElement();
         for (let i = 0; i < items.length; i++) {
             const item = items[i];
             const element = item.getElement();
