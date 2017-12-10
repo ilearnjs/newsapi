@@ -13,7 +13,8 @@ export class Source extends Template {
             <a
                 href="#${HEADLINES}?sources=${this.id}"
                 style="background-image:url(${this.getSourceIconLink()})" 
-                title=" ${this.name}">
+				title=" ${this.name}"
+				class="link">
             </a>
         </div>
         `;

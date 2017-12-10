@@ -1,0 +1,43 @@
+#sources {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+	margin-bottom: 1.2rem;
+
+	@media (min-width: 480px) and (max-width: 768px) { 
+		grid-template-columns: repeat(6, 1fr);
+	 }
+	
+	@media (min-width: 769px) { 
+		grid-template-columns: repeat(8, 1fr);
+	 }
+	
+	.source {
+		position: relative;
+		width: 100%;
+		padding-top: 100%;
+
+		a.link {
+			position: absolute;
+		
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+		
+			background-repeat: no-repeat;
+			background-size: contain;
+		
+			margin: 5%;
+			border-radius: 25%;
+			border: 1px solid #e4e4e4;
+
+			@media (min-width: 769px) {
+				opacity: 0.7;
+			}
+
+			&:hover {
+				opacity: 1;
+			}
+		}
+	}
+}

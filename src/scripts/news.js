@@ -3,6 +3,8 @@ import { NewsRenderingService } from './services/news-rendering-service';
 import { NewsRoutingService } from './services/news-routing-service';
 import { SOURCES, HEADLINES } from './news-constants';
 
+import '../styles/common.scss';
+
 const routes = [
     {
         url: SOURCES,
