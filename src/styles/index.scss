@@ -7,9 +7,11 @@ body {
 
     font-family: arial,sans-serif;
     color: #545454;
-    font-size: 1.1rem;
+	font-size: 1.1rem;
 }
 
-@import "source";
-@import "headline";
-@import "ie-10";
+.show {
+	font-size: 5rem;
+	text-align: center;
+	cursor: pointer;
+}

@@ -17,7 +17,7 @@ export class NewsRenderingService {
             container.appendChild(element);
         }
         this.addContent(container);
-    }
+	}
 
     static addContent(element) {
         this.contentElement.appendChild(element);

@@ -1,15 +1,18 @@
 const path = require('path');
 
 module.exports = {
-	entry: [
-		'babel-polyfill',
-		'whatwg-fetch',
-		'./src/scripts/news',
-	],
+	entry: {
+		index: [
+			'babel-polyfill',
+			'whatwg-fetch',
+			'./src/scripts/index'
+		]
+	},
 
 	output: {
-		filename: 'news-bundle.js',
-		path: path.resolve(__dirname, 'src'),
+		filename: '[name].bundle.js',
+		chunkFilename: '[name].bundle.js',
+		path: path.resolve(__dirname, 'dist'),
 	},
 
 	module: {
@@ -21,6 +24,7 @@ module.exports = {
 					loader: 'babel-loader',
 					options: {
 						presets: ['babel-preset-env'],
+						plugins: ['syntax-dynamic-import'],
 					}
 				},
 			},
