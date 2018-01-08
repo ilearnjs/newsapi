@@ -7,7 +7,7 @@ const getDiv = () => {
 
 	div.onclick = e => {
 		div.remove();
-		import(/* webpackChunkName: "news" */ './news').then(module => {
+		import(/* webpackChunkName: "app" */ './app').then(module => {
 			const showNews = module.default;
 			showNews();
 		});
@@ -15,6 +15,5 @@ const getDiv = () => {
 
 	return div;
 }
-
 
 document.body.appendChild(getDiv());

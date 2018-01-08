@@ -1,3 +1,5 @@
+import { StoreSingleton } from "../state/store-singleton";
+
 export class Template {
     getElement() {
         // IE does not support <template>
@@ -7,9 +9,13 @@ export class Template {
         // return template.content;
 
         const div = document.createElement('div');
-        div.innerHTML = this.getHtml();
+		div.innerHTML = this.getHtml();
+		
+		const element = div.firstElementChild;
 
-        return div.firstElementChild;
+		this.addListeners(element);
+
+        return element;
     }
 
     $if(condition, result) {
@@ -18,5 +24,8 @@ export class Template {
 
     getHtml() {
         throw new Error('The method must be overriden');
-    }
+	}
+	
+	addListeners(el) {
+	}
 }

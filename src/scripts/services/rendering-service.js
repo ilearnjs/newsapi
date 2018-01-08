@@ -1,15 +1,14 @@
 import { Container } from "../models/container-model";
 
-export class NewsRenderingService {
+export class RenderingService {
     static get contentElement() {
         return document.getElementById('content');
     }
 
     static renderContent(items, id) {
-        this.clearContent();
         // IE does not support <template>
-        // const container = new Container(id).getElement().firstElementChild;
-        
+		// const container = new Container(id).getElement().firstElementChild;
+		
         const container = new Container(id).getElement();
         for (let i = 0; i < items.length; i++) {
             const item = items[i];
