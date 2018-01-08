@@ -4,16 +4,16 @@ import { HEADLINES } from "./../news-constants";
 export class Source extends Template {
     constructor(source) {
         super();
-        Object.assign(this, source);
+		Object.assign(this, source);
     }
 
     getHtml() {
         return `
         <div class="source">
-            <a
-                href="#${HEADLINES}?sources=${this.id}"
+			<a
+				data-source="${this.id}"
                 style="background-image:url(${this.getSourceIconLink()})" 
-				title=" ${this.name}"
+				title="${this.name}"
 				class="link">
             </a>
         </div>

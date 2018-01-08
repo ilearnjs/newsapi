@@ -1,38 +1,56 @@
+import { navigationReducer, ReduxStore } from './services/redux';
 import { NewsDataService } from './services/news-data-service';
 import { NewsRenderingService } from './services/news-rendering-service';
-import { NewsRoutingService } from './services/news-routing-service';
-import { SOURCES, HEADLINES } from './news-constants';
-
-import '../styles/news.scss';
 import { Footer } from './models/footer-model';
 
-const routes = [
-	{
-		url: SOURCES,
-		action: () => {
-			NewsDataService.getSources()
-				.then(sources => NewsRenderingService.renderContent(sources, 'sources'))
-				.catch(ex => alert(ex));
-		},
-	},
-	{
-		url: HEADLINES,
-		action: (params) => {
-			NewsDataService.getHeadlines(params)
-				.then(headLines => NewsRenderingService.renderContent(headLines, 'headlines'))
-				.catch(ex => alert(ex));
-		},
-	},
-];
+import '../styles/news.scss';
 
-const routingService = new NewsRoutingService(routes);
-const route = () => routingService.route(location.hash);
 
-window.addEventListener('hashchange', route);
+const newsApp = navigationReducer;
+const store = new ReduxStore(newsApp);
+
+const goToSources = () => {
+	NewsDataService.getSources()
+		.then(sources => NewsRenderingService.renderContent(sources, 'sources'))
+		.catch(ex => alert('Something went wrong'));
+}
+
+const goToHeadlines = (params) => {
+	NewsDataService.getHeadlines(params)
+		.then(headLines => NewsRenderingService.renderContent(headLines, 'headlines'))
+		.catch(ex => alert('Something went wrong'));
+}
+
+const render = () => {
+	const state = store.getState();
+
+	if (state.page === 'Articles') {
+		goToHeadlines({ sources: state.sources });
+		return;
+	}
+	goToSources();
+}
 
 export default () => {
-	route();
+	store.subscribe(render);
 
+	render(false);
 	const footer = new Footer();
 	document.body.appendChild(footer.getElement());
-}
+};
+
+document.getElementById("content").addEventListener("click", (e) => {
+	if (e.target && e.target.matches("a")) {
+		e.preventDefault();
+
+		const source = e.target.getAttribute('data-source');
+		store.dispatch(
+			{
+				type: 'GOTO_ARTICLES',
+				sources: source,
+				saveHistory: true,
+				historyUrl: `#headlines?sources=${source}`
+			}
+		);
+	}
+});

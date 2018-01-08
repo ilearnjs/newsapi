@@ -13,7 +13,8 @@ export class NewsRenderingService {
         const container = new Container(id).getElement();
         for (let i = 0; i < items.length; i++) {
             const item = items[i];
-            const element = item.getElement();
+			const element = item.getElement();
+
             container.appendChild(element);
         }
         this.addContent(container);

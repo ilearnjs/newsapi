@@ -1,37 +1,60 @@
 import { SOURCES_URL, HEADLINES_URL, APIKEY } from '../news-constants';
 import { Source } from '../models/source-model';
 import { Headline } from '../models/headline-model';
+import { CacheService } from './cache-service';
+
+const headlinesCacheTimeout = 5 * 60; // 5 minutes
+const cacheService = new CacheService();
 
 // IE does not support URL
 export class NewsDataService {
-    static getSources() {
-        // const url = new URL(SOURCES_URL);
+	static getSources() {
+		// const url = new URL(SOURCES_URL);
 
-        const url = SOURCES_URL;
+		const url = SOURCES_URL;
 
-        return this.request(url)
-            .then(json => json.sources.map(s => new Source(s)));
-    };
 
-    static getHeadlines(params) {
-        // const url = new URL(HEADLINES_URL);
+		return this.request(url)
+			.then(json => this.mapSources(json));
+	};
 
-        const url = HEADLINES_URL;
+	static mapSources(json, onClick) {
+		return json.sources.map(s => new Source(s));
+	};
 
-        return this.request(url, params)
-            .then(json => json.articles.map(a => new Headline(a)));
-    };
+	static getHeadlines(params) {
+		// const url = new URL(HEADLINES_URL);
 
-    static request(url, params = {}) {
-        Object.assign(params, { APIKEY });
+		const url = HEADLINES_URL;
 
-        // Object.keys(params)
-        //     .forEach(key => url.searchParams.append(key, params[key]));
+		return this.request(url, params)
+			.then(json => this.mapHeadlines(json));
+	};
 
-        const urlParams = Object.keys(params).map(key => `${key}=${params[key]}`).join('&');
-        url += `?${urlParams}`;
+	static mapHeadlines(json) {
+		return json.articles.map(a => new Headline(a));
+	}
 
-        return fetch(url)
-            .then(data => data.json());
-    };
+	static request(url, params = {}) {
+		Object.assign(params, { APIKEY });
+
+		// Object.keys(params)
+		//     .forEach(key => url.searchParams.append(key, params[key]));
+
+		const urlParams = Object.keys(params).map(key => `${key}=${params[key]}`).join('&');
+		url += `?${urlParams}`;
+
+		const cached = cacheService.getFromCahce(url);
+		if (cached) {
+			return Promise.resolve(cached);
+		}
+
+		return fetch(url)
+			.then(data => {
+				return data.json().then(json => {
+					cacheService.setToCache(url, json);
+					return json;
+				});
+			});
+	};
 }
